@@ -1,6 +1,13 @@
 table:
   name: quizzes_questions
   schema: public
+configuration:
+  column_config: {}
+  custom_column_names: {}
+  custom_root_fields:
+    delete_by_pk: delete_quiz_question_by_id
+    select_by_pk: quiz_question_by_id
+    update_by_pk: update_quiz_question_by_id
 object_relationships:
   - name: question
     using:
@@ -22,3 +29,7 @@ select_permissions:
         quiz:
           user_id:
             _eq: X-Hasura-User-Id
+      query_root_fields:
+        - select_by_pk
+      subscription_root_fields:
+        - select_by_pk

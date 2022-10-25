@@ -1,8 +1,15 @@
 table:
   name: questions
   schema: public
+configuration:
+  column_config: {}
+  custom_column_names: {}
+  custom_root_fields:
+    delete_by_pk: delete_question_by_id
+    select_by_pk: question_by_id
+    update_by_pk: update_question_by_id
 array_relationships:
-  - name: quizzes
+  - name: quizzes_questions
     using:
       foreign_key_constraint_on:
         column: question_id
