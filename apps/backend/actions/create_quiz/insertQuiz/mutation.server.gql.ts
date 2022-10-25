@@ -7,7 +7,11 @@ export const INSERT_QUIZ_MUTATION = gql`
     $questions: [quizzes_questions_insert_input!]!
   ) {
     insert_quizzes_one(
-      object: { id: $quizId, user_id: $userId, questions: { data: $questions } }
+      object: {
+        id: $quizId
+        user_id: $userId
+        quizzes_questions: { data: $questions }
+      }
     ) {
       id
     }

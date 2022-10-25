@@ -146,30 +146,30 @@ export type Mutation_Root = {
   complete_quiz?: Maybe<Complete_Quiz_Output>
   /** create_quiz */
   create_quiz: Create_Quiz_Action_Response
+  /** delete single row from the table: "questions" */
+  delete_question_by_id?: Maybe<Questions>
   /** delete data from the table: "questions" */
   delete_questions?: Maybe<Questions_Mutation_Response>
   /** delete data from the table: "questions_answer_type" */
   delete_questions_answer_type?: Maybe<Questions_Answer_Type_Mutation_Response>
   /** delete single row from the table: "questions_answer_type" */
   delete_questions_answer_type_by_pk?: Maybe<Questions_Answer_Type>
-  /** delete single row from the table: "questions" */
-  delete_questions_by_pk?: Maybe<Questions>
+  /** delete single row from the table: "quizzes" */
+  delete_quiz_by_id?: Maybe<Quizzes>
+  /** delete single row from the table: "quizzes_questions" */
+  delete_quiz_question_by_id?: Maybe<Quizzes_Questions>
   /** delete data from the table: "quizzes" */
   delete_quizzes?: Maybe<Quizzes_Mutation_Response>
-  /** delete single row from the table: "quizzes" */
-  delete_quizzes_by_pk?: Maybe<Quizzes>
   /** delete data from the table: "quizzes_questions" */
   delete_quizzes_questions?: Maybe<Quizzes_Questions_Mutation_Response>
-  /** delete single row from the table: "quizzes_questions" */
-  delete_quizzes_questions_by_pk?: Maybe<Quizzes_Questions>
   /** delete data from the table: "quizzes_questions_response_correctness" */
   delete_quizzes_questions_response_correctness?: Maybe<Quizzes_Questions_Response_Correctness_Mutation_Response>
   /** delete single row from the table: "quizzes_questions_response_correctness" */
   delete_quizzes_questions_response_correctness_by_pk?: Maybe<Quizzes_Questions_Response_Correctness>
+  /** delete single row from the table: "users" */
+  delete_user_by_id?: Maybe<Users>
   /** delete data from the table: "users" */
   delete_users?: Maybe<Users_Mutation_Response>
-  /** delete single row from the table: "users" */
-  delete_users_by_pk?: Maybe<Users>
   /** insert data into the table: "questions" */
   insert_questions?: Maybe<Questions_Mutation_Response>
   /** insert data into the table: "questions_answer_type" */
@@ -196,6 +196,8 @@ export type Mutation_Root = {
   insert_users_one?: Maybe<Users>
   /** submit_question_response */
   submit_question_response?: Maybe<Submit_Question_Response_Output>
+  /** update single row of the table: "questions" */
+  update_question_by_id?: Maybe<Questions>
   /** update data of the table: "questions" */
   update_questions?: Maybe<Questions_Mutation_Response>
   /** update data of the table: "questions_answer_type" */
@@ -206,20 +208,18 @@ export type Mutation_Root = {
   update_questions_answer_type_many?: Maybe<
     Array<Maybe<Questions_Answer_Type_Mutation_Response>>
   >
-  /** update single row of the table: "questions" */
-  update_questions_by_pk?: Maybe<Questions>
   /** update multiples rows of table: "questions" */
   update_questions_many?: Maybe<Array<Maybe<Questions_Mutation_Response>>>
+  /** update single row of the table: "quizzes" */
+  update_quiz_by_id?: Maybe<Quizzes>
+  /** update single row of the table: "quizzes_questions" */
+  update_quiz_question_by_id?: Maybe<Quizzes_Questions>
   /** update data of the table: "quizzes" */
   update_quizzes?: Maybe<Quizzes_Mutation_Response>
-  /** update single row of the table: "quizzes" */
-  update_quizzes_by_pk?: Maybe<Quizzes>
   /** update multiples rows of table: "quizzes" */
   update_quizzes_many?: Maybe<Array<Maybe<Quizzes_Mutation_Response>>>
   /** update data of the table: "quizzes_questions" */
   update_quizzes_questions?: Maybe<Quizzes_Questions_Mutation_Response>
-  /** update single row of the table: "quizzes_questions" */
-  update_quizzes_questions_by_pk?: Maybe<Quizzes_Questions>
   /** update multiples rows of table: "quizzes_questions" */
   update_quizzes_questions_many?: Maybe<
     Array<Maybe<Quizzes_Questions_Mutation_Response>>
@@ -232,10 +232,10 @@ export type Mutation_Root = {
   update_quizzes_questions_response_correctness_many?: Maybe<
     Array<Maybe<Quizzes_Questions_Response_Correctness_Mutation_Response>>
   >
+  /** update single row of the table: "users" */
+  update_user_by_id?: Maybe<Users>
   /** update data of the table: "users" */
   update_users?: Maybe<Users_Mutation_Response>
-  /** update single row of the table: "users" */
-  update_users_by_pk?: Maybe<Users>
   /** update multiples rows of table: "users" */
   update_users_many?: Maybe<Array<Maybe<Users_Mutation_Response>>>
 }
@@ -248,6 +248,11 @@ export type Mutation_RootComplete_QuizArgs = {
 /** mutation root */
 export type Mutation_RootCreate_QuizArgs = {
   difficulty: Create_Quiz_Difficulty
+}
+
+/** mutation root */
+export type Mutation_RootDelete_Question_By_IdArgs = {
+  id: Scalars['String']
 }
 
 /** mutation root */
@@ -266,7 +271,12 @@ export type Mutation_RootDelete_Questions_Answer_Type_By_PkArgs = {
 }
 
 /** mutation root */
-export type Mutation_RootDelete_Questions_By_PkArgs = {
+export type Mutation_RootDelete_Quiz_By_IdArgs = {
+  id: Scalars['String']
+}
+
+/** mutation root */
+export type Mutation_RootDelete_Quiz_Question_By_IdArgs = {
   id: Scalars['String']
 }
 
@@ -276,18 +286,8 @@ export type Mutation_RootDelete_QuizzesArgs = {
 }
 
 /** mutation root */
-export type Mutation_RootDelete_Quizzes_By_PkArgs = {
-  id: Scalars['String']
-}
-
-/** mutation root */
 export type Mutation_RootDelete_Quizzes_QuestionsArgs = {
   where: Quizzes_Questions_Bool_Exp
-}
-
-/** mutation root */
-export type Mutation_RootDelete_Quizzes_Questions_By_PkArgs = {
-  id: Scalars['String']
 }
 
 /** mutation root */
@@ -302,13 +302,13 @@ export type Mutation_RootDelete_Quizzes_Questions_Response_Correctness_By_PkArgs
   }
 
 /** mutation root */
-export type Mutation_RootDelete_UsersArgs = {
-  where: Users_Bool_Exp
+export type Mutation_RootDelete_User_By_IdArgs = {
+  id: Scalars['String']
 }
 
 /** mutation root */
-export type Mutation_RootDelete_Users_By_PkArgs = {
-  id: Scalars['String']
+export type Mutation_RootDelete_UsersArgs = {
+  where: Users_Bool_Exp
 }
 
 /** mutation root */
@@ -390,6 +390,18 @@ export type Mutation_RootSubmit_Question_ResponseArgs = {
 }
 
 /** mutation root */
+export type Mutation_RootUpdate_Question_By_IdArgs = {
+  _append?: InputMaybe<Questions_Append_Input>
+  _delete_at_path?: InputMaybe<Questions_Delete_At_Path_Input>
+  _delete_elem?: InputMaybe<Questions_Delete_Elem_Input>
+  _delete_key?: InputMaybe<Questions_Delete_Key_Input>
+  _inc?: InputMaybe<Questions_Inc_Input>
+  _prepend?: InputMaybe<Questions_Prepend_Input>
+  _set?: InputMaybe<Questions_Set_Input>
+  pk_columns: Questions_Pk_Columns_Input
+}
+
+/** mutation root */
 export type Mutation_RootUpdate_QuestionsArgs = {
   _append?: InputMaybe<Questions_Append_Input>
   _delete_at_path?: InputMaybe<Questions_Delete_At_Path_Input>
@@ -419,32 +431,27 @@ export type Mutation_RootUpdate_Questions_Answer_Type_ManyArgs = {
 }
 
 /** mutation root */
-export type Mutation_RootUpdate_Questions_By_PkArgs = {
-  _append?: InputMaybe<Questions_Append_Input>
-  _delete_at_path?: InputMaybe<Questions_Delete_At_Path_Input>
-  _delete_elem?: InputMaybe<Questions_Delete_Elem_Input>
-  _delete_key?: InputMaybe<Questions_Delete_Key_Input>
-  _inc?: InputMaybe<Questions_Inc_Input>
-  _prepend?: InputMaybe<Questions_Prepend_Input>
-  _set?: InputMaybe<Questions_Set_Input>
-  pk_columns: Questions_Pk_Columns_Input
+export type Mutation_RootUpdate_Questions_ManyArgs = {
+  updates: Array<Questions_Updates>
 }
 
 /** mutation root */
-export type Mutation_RootUpdate_Questions_ManyArgs = {
-  updates: Array<Questions_Updates>
+export type Mutation_RootUpdate_Quiz_By_IdArgs = {
+  _set?: InputMaybe<Quizzes_Set_Input>
+  pk_columns: Quizzes_Pk_Columns_Input
+}
+
+/** mutation root */
+export type Mutation_RootUpdate_Quiz_Question_By_IdArgs = {
+  _inc?: InputMaybe<Quizzes_Questions_Inc_Input>
+  _set?: InputMaybe<Quizzes_Questions_Set_Input>
+  pk_columns: Quizzes_Questions_Pk_Columns_Input
 }
 
 /** mutation root */
 export type Mutation_RootUpdate_QuizzesArgs = {
   _set?: InputMaybe<Quizzes_Set_Input>
   where: Quizzes_Bool_Exp
-}
-
-/** mutation root */
-export type Mutation_RootUpdate_Quizzes_By_PkArgs = {
-  _set?: InputMaybe<Quizzes_Set_Input>
-  pk_columns: Quizzes_Pk_Columns_Input
 }
 
 /** mutation root */
@@ -457,13 +464,6 @@ export type Mutation_RootUpdate_Quizzes_QuestionsArgs = {
   _inc?: InputMaybe<Quizzes_Questions_Inc_Input>
   _set?: InputMaybe<Quizzes_Questions_Set_Input>
   where: Quizzes_Questions_Bool_Exp
-}
-
-/** mutation root */
-export type Mutation_RootUpdate_Quizzes_Questions_By_PkArgs = {
-  _inc?: InputMaybe<Quizzes_Questions_Inc_Input>
-  _set?: InputMaybe<Quizzes_Questions_Set_Input>
-  pk_columns: Quizzes_Questions_Pk_Columns_Input
 }
 
 /** mutation root */
@@ -491,15 +491,15 @@ export type Mutation_RootUpdate_Quizzes_Questions_Response_Correctness_ManyArgs 
   }
 
 /** mutation root */
-export type Mutation_RootUpdate_UsersArgs = {
+export type Mutation_RootUpdate_User_By_IdArgs = {
   _set?: InputMaybe<Users_Set_Input>
-  where: Users_Bool_Exp
+  pk_columns: Users_Pk_Columns_Input
 }
 
 /** mutation root */
-export type Mutation_RootUpdate_Users_By_PkArgs = {
+export type Mutation_RootUpdate_UsersArgs = {
   _set?: InputMaybe<Users_Set_Input>
-  pk_columns: Users_Pk_Columns_Input
+  where: Users_Bool_Exp
 }
 
 /** mutation root */
@@ -538,6 +538,8 @@ export enum Order_By {
 
 export type Query_Root = {
   __typename?: 'query_root'
+  /** fetch data from the table: "questions" using primary key columns */
+  question_by_id?: Maybe<Questions>
   /** fetch data from the table: "questions" */
   questions: Array<Questions>
   /** fetch aggregated fields from the table: "questions" */
@@ -548,32 +550,34 @@ export type Query_Root = {
   questions_answer_type_aggregate: Questions_Answer_Type_Aggregate
   /** fetch data from the table: "questions_answer_type" using primary key columns */
   questions_answer_type_by_pk?: Maybe<Questions_Answer_Type>
-  /** fetch data from the table: "questions" using primary key columns */
-  questions_by_pk?: Maybe<Questions>
+  /** fetch data from the table: "quizzes" using primary key columns */
+  quiz_by_id?: Maybe<Quizzes>
+  /** fetch data from the table: "quizzes_questions" using primary key columns */
+  quiz_question_by_id?: Maybe<Quizzes_Questions>
   /** An array relationship */
   quizzes: Array<Quizzes>
   /** An aggregate relationship */
   quizzes_aggregate: Quizzes_Aggregate
-  /** fetch data from the table: "quizzes" using primary key columns */
-  quizzes_by_pk?: Maybe<Quizzes>
-  /** fetch data from the table: "quizzes_questions" */
+  /** An array relationship */
   quizzes_questions: Array<Quizzes_Questions>
-  /** fetch aggregated fields from the table: "quizzes_questions" */
+  /** An aggregate relationship */
   quizzes_questions_aggregate: Quizzes_Questions_Aggregate
-  /** fetch data from the table: "quizzes_questions" using primary key columns */
-  quizzes_questions_by_pk?: Maybe<Quizzes_Questions>
   /** fetch data from the table: "quizzes_questions_response_correctness" */
   quizzes_questions_response_correctness: Array<Quizzes_Questions_Response_Correctness>
   /** fetch aggregated fields from the table: "quizzes_questions_response_correctness" */
   quizzes_questions_response_correctness_aggregate: Quizzes_Questions_Response_Correctness_Aggregate
   /** fetch data from the table: "quizzes_questions_response_correctness" using primary key columns */
   quizzes_questions_response_correctness_by_pk?: Maybe<Quizzes_Questions_Response_Correctness>
+  /** fetch data from the table: "users" using primary key columns */
+  user_by_id?: Maybe<Users>
   /** fetch data from the table: "users" */
   users: Array<Users>
   /** fetch aggregated fields from the table: "users" */
   users_aggregate: Users_Aggregate
-  /** fetch data from the table: "users" using primary key columns */
-  users_by_pk?: Maybe<Users>
+}
+
+export type Query_RootQuestion_By_IdArgs = {
+  id: Scalars['String']
 }
 
 export type Query_RootQuestionsArgs = {
@@ -612,7 +616,11 @@ export type Query_RootQuestions_Answer_Type_By_PkArgs = {
   value: Scalars['String']
 }
 
-export type Query_RootQuestions_By_PkArgs = {
+export type Query_RootQuiz_By_IdArgs = {
+  id: Scalars['String']
+}
+
+export type Query_RootQuiz_Question_By_IdArgs = {
   id: Scalars['String']
 }
 
@@ -632,10 +640,6 @@ export type Query_RootQuizzes_AggregateArgs = {
   where?: InputMaybe<Quizzes_Bool_Exp>
 }
 
-export type Query_RootQuizzes_By_PkArgs = {
-  id: Scalars['String']
-}
-
 export type Query_RootQuizzes_QuestionsArgs = {
   distinct_on?: InputMaybe<Array<Quizzes_Questions_Select_Column>>
   limit?: InputMaybe<Scalars['Int']>
@@ -650,10 +654,6 @@ export type Query_RootQuizzes_Questions_AggregateArgs = {
   offset?: InputMaybe<Scalars['Int']>
   order_by?: InputMaybe<Array<Quizzes_Questions_Order_By>>
   where?: InputMaybe<Quizzes_Questions_Bool_Exp>
-}
-
-export type Query_RootQuizzes_Questions_By_PkArgs = {
-  id: Scalars['String']
 }
 
 export type Query_RootQuizzes_Questions_Response_CorrectnessArgs = {
@@ -680,6 +680,10 @@ export type Query_RootQuizzes_Questions_Response_Correctness_By_PkArgs = {
   value: Scalars['String']
 }
 
+export type Query_RootUser_By_IdArgs = {
+  id: Scalars['String']
+}
+
 export type Query_RootUsersArgs = {
   distinct_on?: InputMaybe<Array<Users_Select_Column>>
   limit?: InputMaybe<Scalars['Int']>
@@ -696,10 +700,6 @@ export type Query_RootUsers_AggregateArgs = {
   where?: InputMaybe<Users_Bool_Exp>
 }
 
-export type Query_RootUsers_By_PkArgs = {
-  id: Scalars['String']
-}
-
 /** columns and relationships of "questions" */
 export type Questions = {
   __typename?: 'questions'
@@ -710,9 +710,9 @@ export type Questions = {
   input_label: Scalars['String']
   input_options?: Maybe<Scalars['jsonb']>
   /** An array relationship */
-  quizzes: Array<Quizzes_Questions>
+  quizzes_questions: Array<Quizzes_Questions>
   /** An aggregate relationship */
-  quizzes_aggregate: Quizzes_Questions_Aggregate
+  quizzes_questions_aggregate: Quizzes_Questions_Aggregate
 }
 
 /** columns and relationships of "questions" */
@@ -721,7 +721,7 @@ export type QuestionsInput_OptionsArgs = {
 }
 
 /** columns and relationships of "questions" */
-export type QuestionsQuizzesArgs = {
+export type QuestionsQuizzes_QuestionsArgs = {
   distinct_on?: InputMaybe<Array<Quizzes_Questions_Select_Column>>
   limit?: InputMaybe<Scalars['Int']>
   offset?: InputMaybe<Scalars['Int']>
@@ -730,7 +730,7 @@ export type QuestionsQuizzesArgs = {
 }
 
 /** columns and relationships of "questions" */
-export type QuestionsQuizzes_AggregateArgs = {
+export type QuestionsQuizzes_Questions_AggregateArgs = {
   distinct_on?: InputMaybe<Array<Quizzes_Questions_Select_Column>>
   limit?: InputMaybe<Scalars['Int']>
   offset?: InputMaybe<Scalars['Int']>
@@ -935,7 +935,7 @@ export type Questions_Bool_Exp = {
   id?: InputMaybe<String_Comparison_Exp>
   input_label?: InputMaybe<String_Comparison_Exp>
   input_options?: InputMaybe<Jsonb_Comparison_Exp>
-  quizzes?: InputMaybe<Quizzes_Questions_Bool_Exp>
+  quizzes_questions?: InputMaybe<Quizzes_Questions_Bool_Exp>
 }
 
 /** unique or primary key constraints on table "questions" */
@@ -972,7 +972,7 @@ export type Questions_Insert_Input = {
   id?: InputMaybe<Scalars['String']>
   input_label?: InputMaybe<Scalars['String']>
   input_options?: InputMaybe<Scalars['jsonb']>
-  quizzes?: InputMaybe<Quizzes_Questions_Arr_Rel_Insert_Input>
+  quizzes_questions?: InputMaybe<Quizzes_Questions_Arr_Rel_Insert_Input>
 }
 
 /** aggregate max on columns */
@@ -1024,7 +1024,7 @@ export type Questions_Order_By = {
   id?: InputMaybe<Order_By>
   input_label?: InputMaybe<Order_By>
   input_options?: InputMaybe<Order_By>
-  quizzes_aggregate?: InputMaybe<Quizzes_Questions_Aggregate_Order_By>
+  quizzes_questions_aggregate?: InputMaybe<Quizzes_Questions_Aggregate_Order_By>
 }
 
 /** primary key columns input for table: questions */
@@ -1163,9 +1163,9 @@ export type Quizzes = {
   completed_at?: Maybe<Scalars['timestamptz']>
   id: Scalars['String']
   /** An array relationship */
-  questions: Array<Quizzes_Questions>
+  quizzes_questions: Array<Quizzes_Questions>
   /** An aggregate relationship */
-  questions_aggregate: Quizzes_Questions_Aggregate
+  quizzes_questions_aggregate: Quizzes_Questions_Aggregate
   started_at?: Maybe<Scalars['timestamptz']>
   /** An object relationship */
   user: Users
@@ -1173,7 +1173,7 @@ export type Quizzes = {
 }
 
 /** columns and relationships of "quizzes" */
-export type QuizzesQuestionsArgs = {
+export type QuizzesQuizzes_QuestionsArgs = {
   distinct_on?: InputMaybe<Array<Quizzes_Questions_Select_Column>>
   limit?: InputMaybe<Scalars['Int']>
   offset?: InputMaybe<Scalars['Int']>
@@ -1182,7 +1182,7 @@ export type QuizzesQuestionsArgs = {
 }
 
 /** columns and relationships of "quizzes" */
-export type QuizzesQuestions_AggregateArgs = {
+export type QuizzesQuizzes_Questions_AggregateArgs = {
   distinct_on?: InputMaybe<Array<Quizzes_Questions_Select_Column>>
   limit?: InputMaybe<Scalars['Int']>
   offset?: InputMaybe<Scalars['Int']>
@@ -1232,7 +1232,7 @@ export type Quizzes_Bool_Exp = {
   _or?: InputMaybe<Array<Quizzes_Bool_Exp>>
   completed_at?: InputMaybe<Timestamptz_Comparison_Exp>
   id?: InputMaybe<String_Comparison_Exp>
-  questions?: InputMaybe<Quizzes_Questions_Bool_Exp>
+  quizzes_questions?: InputMaybe<Quizzes_Questions_Bool_Exp>
   started_at?: InputMaybe<Timestamptz_Comparison_Exp>
   user?: InputMaybe<Users_Bool_Exp>
   user_id?: InputMaybe<String_Comparison_Exp>
@@ -1248,7 +1248,7 @@ export enum Quizzes_Constraint {
 export type Quizzes_Insert_Input = {
   completed_at?: InputMaybe<Scalars['timestamptz']>
   id?: InputMaybe<Scalars['String']>
-  questions?: InputMaybe<Quizzes_Questions_Arr_Rel_Insert_Input>
+  quizzes_questions?: InputMaybe<Quizzes_Questions_Arr_Rel_Insert_Input>
   started_at?: InputMaybe<Scalars['timestamptz']>
   user?: InputMaybe<Users_Obj_Rel_Insert_Input>
   user_id?: InputMaybe<Scalars['String']>
@@ -1315,7 +1315,7 @@ export type Quizzes_On_Conflict = {
 export type Quizzes_Order_By = {
   completed_at?: InputMaybe<Order_By>
   id?: InputMaybe<Order_By>
-  questions_aggregate?: InputMaybe<Quizzes_Questions_Aggregate_Order_By>
+  quizzes_questions_aggregate?: InputMaybe<Quizzes_Questions_Aggregate_Order_By>
   started_at?: InputMaybe<Order_By>
   user?: InputMaybe<Users_Order_By>
   user_id?: InputMaybe<Order_By>
@@ -1861,6 +1861,8 @@ export type Quizzes_Updates = {
 
 export type Subscription_Root = {
   __typename?: 'subscription_root'
+  /** fetch data from the table: "questions" using primary key columns */
+  question_by_id?: Maybe<Questions>
   /** fetch data from the table: "questions" */
   questions: Array<Questions>
   /** fetch aggregated fields from the table: "questions" */
@@ -1873,22 +1875,20 @@ export type Subscription_Root = {
   questions_answer_type_by_pk?: Maybe<Questions_Answer_Type>
   /** fetch data from the table in a streaming manner : "questions_answer_type" */
   questions_answer_type_stream: Array<Questions_Answer_Type>
-  /** fetch data from the table: "questions" using primary key columns */
-  questions_by_pk?: Maybe<Questions>
   /** fetch data from the table in a streaming manner : "questions" */
   questions_stream: Array<Questions>
+  /** fetch data from the table: "quizzes" using primary key columns */
+  quiz_by_id?: Maybe<Quizzes>
+  /** fetch data from the table: "quizzes_questions" using primary key columns */
+  quiz_question_by_id?: Maybe<Quizzes_Questions>
   /** An array relationship */
   quizzes: Array<Quizzes>
   /** An aggregate relationship */
   quizzes_aggregate: Quizzes_Aggregate
-  /** fetch data from the table: "quizzes" using primary key columns */
-  quizzes_by_pk?: Maybe<Quizzes>
-  /** fetch data from the table: "quizzes_questions" */
+  /** An array relationship */
   quizzes_questions: Array<Quizzes_Questions>
-  /** fetch aggregated fields from the table: "quizzes_questions" */
+  /** An aggregate relationship */
   quizzes_questions_aggregate: Quizzes_Questions_Aggregate
-  /** fetch data from the table: "quizzes_questions" using primary key columns */
-  quizzes_questions_by_pk?: Maybe<Quizzes_Questions>
   /** fetch data from the table: "quizzes_questions_response_correctness" */
   quizzes_questions_response_correctness: Array<Quizzes_Questions_Response_Correctness>
   /** fetch aggregated fields from the table: "quizzes_questions_response_correctness" */
@@ -1901,14 +1901,18 @@ export type Subscription_Root = {
   quizzes_questions_stream: Array<Quizzes_Questions>
   /** fetch data from the table in a streaming manner : "quizzes" */
   quizzes_stream: Array<Quizzes>
+  /** fetch data from the table: "users" using primary key columns */
+  user_by_id?: Maybe<Users>
   /** fetch data from the table: "users" */
   users: Array<Users>
   /** fetch aggregated fields from the table: "users" */
   users_aggregate: Users_Aggregate
-  /** fetch data from the table: "users" using primary key columns */
-  users_by_pk?: Maybe<Users>
   /** fetch data from the table in a streaming manner : "users" */
   users_stream: Array<Users>
+}
+
+export type Subscription_RootQuestion_By_IdArgs = {
+  id: Scalars['String']
 }
 
 export type Subscription_RootQuestionsArgs = {
@@ -1953,14 +1957,18 @@ export type Subscription_RootQuestions_Answer_Type_StreamArgs = {
   where?: InputMaybe<Questions_Answer_Type_Bool_Exp>
 }
 
-export type Subscription_RootQuestions_By_PkArgs = {
-  id: Scalars['String']
-}
-
 export type Subscription_RootQuestions_StreamArgs = {
   batch_size: Scalars['Int']
   cursor: Array<InputMaybe<Questions_Stream_Cursor_Input>>
   where?: InputMaybe<Questions_Bool_Exp>
+}
+
+export type Subscription_RootQuiz_By_IdArgs = {
+  id: Scalars['String']
+}
+
+export type Subscription_RootQuiz_Question_By_IdArgs = {
+  id: Scalars['String']
 }
 
 export type Subscription_RootQuizzesArgs = {
@@ -1979,10 +1987,6 @@ export type Subscription_RootQuizzes_AggregateArgs = {
   where?: InputMaybe<Quizzes_Bool_Exp>
 }
 
-export type Subscription_RootQuizzes_By_PkArgs = {
-  id: Scalars['String']
-}
-
 export type Subscription_RootQuizzes_QuestionsArgs = {
   distinct_on?: InputMaybe<Array<Quizzes_Questions_Select_Column>>
   limit?: InputMaybe<Scalars['Int']>
@@ -1997,10 +2001,6 @@ export type Subscription_RootQuizzes_Questions_AggregateArgs = {
   offset?: InputMaybe<Scalars['Int']>
   order_by?: InputMaybe<Array<Quizzes_Questions_Order_By>>
   where?: InputMaybe<Quizzes_Questions_Bool_Exp>
-}
-
-export type Subscription_RootQuizzes_Questions_By_PkArgs = {
-  id: Scalars['String']
 }
 
 export type Subscription_RootQuizzes_Questions_Response_CorrectnessArgs = {
@@ -2052,6 +2052,10 @@ export type Subscription_RootQuizzes_StreamArgs = {
   where?: InputMaybe<Quizzes_Bool_Exp>
 }
 
+export type Subscription_RootUser_By_IdArgs = {
+  id: Scalars['String']
+}
+
 export type Subscription_RootUsersArgs = {
   distinct_on?: InputMaybe<Array<Users_Select_Column>>
   limit?: InputMaybe<Scalars['Int']>
@@ -2066,10 +2070,6 @@ export type Subscription_RootUsers_AggregateArgs = {
   offset?: InputMaybe<Scalars['Int']>
   order_by?: InputMaybe<Array<Users_Order_By>>
   where?: InputMaybe<Users_Bool_Exp>
-}
-
-export type Subscription_RootUsers_By_PkArgs = {
-  id: Scalars['String']
 }
 
 export type Subscription_RootUsers_StreamArgs = {
@@ -2313,7 +2313,7 @@ export type GetQuestionCorrectAnswerQueryVariables = Exact<{
 
 export type GetQuestionCorrectAnswerQuery = {
   __typename?: 'query_root'
-  quizzes_questions_by_pk?:
+  quiz_question_by_id?:
     | {
         __typename?: 'quizzes_questions'
         question: { __typename?: 'questions'; answer_value: string }
@@ -2371,7 +2371,11 @@ export const InsertQuizDocument = gql`
     $questions: [quizzes_questions_insert_input!]!
   ) {
     insert_quizzes_one(
-      object: { id: $quizId, user_id: $userId, questions: { data: $questions } }
+      object: {
+        id: $quizId
+        user_id: $userId
+        quizzes_questions: { data: $questions }
+      }
     ) {
       id
     }
@@ -2379,7 +2383,7 @@ export const InsertQuizDocument = gql`
 `
 export const GetQuestionCorrectAnswerDocument = gql`
   query GetQuestionCorrectAnswer($quiz_question_id: String!) {
-    quizzes_questions_by_pk(id: $quiz_question_id) {
+    quiz_question_by_id(id: $quiz_question_id) {
       question {
         answer_value
       }
@@ -2576,7 +2580,7 @@ export const mockInsertQuizMutation = (
  * mockGetQuestionCorrectAnswerQuery((req, res, ctx) => {
  *   const { quiz_question_id } = req.variables;
  *   return res(
- *     ctx.data({ quizzes_questions_by_pk })
+ *     ctx.data({ quiz_question_by_id })
  *   )
  * })
  */
