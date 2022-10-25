@@ -4,7 +4,7 @@ services:
     image: postgres:12
     restart: always
     volumes:
-      - db_data:/var/lib/postgresql/hyphen_fullstack_exercise_0
+      - db_data:/var/lib/postgresql/hyphen_frontend_exercise_0
     environment:
       POSTGRES_PASSWORD: postgrespassword
   graphql-engine:
