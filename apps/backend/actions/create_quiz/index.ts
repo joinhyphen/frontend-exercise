@@ -26,7 +26,7 @@ export const create_quiz = async (
     const userId = req.body.session_variables['x-hasura-user-id']
     const difficulty = req.body.input.difficulty
 
-    const questionIds = await createQuizQuestions(difficulty) // ❌ not yet implemented
+    const questionIds = await createQuizQuestions(difficulty) // ✅ implemented
     const quizId = await insertQuiz(userId, questionIds) // ✅ implemented
 
     return res.status(200).json({ quizId })

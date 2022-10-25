@@ -3,22 +3,61 @@ import {
   Mutation_RootCreate_QuizArgs,
   Quizzes_Questions_Insert_Input
 } from '../../../sdk/generated'
+import { pickRandomArrayItem } from './pickRandomQuestion'
+import { splitQuestionsByDifficulty } from './splitQuestionsByDifficulty'
 
 export const NUMBER_OF_QUESTIONS_PER_QUIZ = 5
 
 export type CreateQuizQuestionsOutput = Array<
-  NonNullable<Quizzes_Questions_Insert_Input['question_id']>
+  NonNullable<Quizzes_Questions_Insert_Input>['question_id']
 >
+
+const questionsCountsByQuizDifficulty: {
+  [key in Mutation_RootCreate_QuizArgs['difficulty']]: {
+    easyQuestionsCount: number
+    hardQuestionsCount: number
+  }
+} = {
+  EASY: {
+    easyQuestionsCount: 5,
+    hardQuestionsCount: 0
+  },
+  MODERATE: {
+    easyQuestionsCount: 3,
+    hardQuestionsCount: 2
+  },
+  HARD: {
+    easyQuestionsCount: 0,
+    hardQuestionsCount: 5
+  }
+}
 
 export const createQuizQuestions = async (
   difficulty: Mutation_RootCreate_QuizArgs['difficulty']
 ): Promise<CreateQuizQuestionsOutput> => {
-  const data = await server.GetQuestions()
+  const { questions } = await server.GetQuestions()
+  const { easyQuestions, hardQuestions } = splitQuestionsByDifficulty(questions)
+  const { easyQuestionsCount } = questionsCountsByQuizDifficulty[difficulty]
+  const targetLengthArray = [...new Array(NUMBER_OF_QUESTIONS_PER_QUIZ)]
 
-  // TASK 1
-  // Instructions:
-  // https://www.notion.so/joinhyphen/Full-stack-engineer-exercise-5ccde379536d47e98fd6cfea63b39ef8#3416333e0d154921b8c93d121c8dbf77
-  // ...
+  const quizQuestions = targetLengthArray.reduce<CreateQuizQuestionsOutput>(
+    (accumulator, item, index) => {
+      const currentQuestionNumber = index + 1
+      const shouldBeEasyQuestion = currentQuestionNumber <= easyQuestionsCount
+      const questionsOfCorrectDifficulty = shouldBeEasyQuestion
+        ? easyQuestions
+        : hardQuestions
 
-  return ['question1', 'question2', 'question3', 'question4', 'question5']
+      const remainingUniqueQuestions = questionsOfCorrectDifficulty.filter(
+        (item) => !accumulator.includes(item.id)
+      )
+
+      const newQuestion = pickRandomArrayItem(remainingUniqueQuestions)
+
+      return [...accumulator, newQuestion.id]
+    },
+    []
+  )
+
+  return quizQuestions
 }
